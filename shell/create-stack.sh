@@ -2,6 +2,10 @@
 # cd generative-ai-amazon-bedrock-langchain-agent-example/shell/
 # chmod u+x create-stack.sh
 # source ./create-stack.sh
+export AMPLIFY_REPOSITORY="https://github.com/vladcp/generative-ai-amazon-bedrock-langchain-agent-example" # Forked repository URL from Pre-Deployment (Exclude '.git' from repository URL)
+export GITHUB_PAT="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" # GitHub PAT copied from Pre-Deployment
+export STACK_NAME="bedrock-langchain-lex-agent-stack" # Stack name must be lower case for S3 bucket naming convention
+export KENDRA_WEBCRAWLER_URL="https://airwalkreply.com/"
 
 export ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text)
 export S3_ARTIFACT_BUCKET_NAME=$STACK_NAME-$ACCOUNT_ID
@@ -14,7 +18,7 @@ echo "STACK_NAME: $STACK_NAME"
 echo "ACCOUNT_ID: $ACCOUNT_ID"
 echo "S3_ARTIFACT_BUCKET_NAME: $S3_ARTIFACT_BUCKET_NAME"
 
-aws s3 mb s3://${S3_ARTIFACT_BUCKET_NAME} --region us-east-1
+aws s3 mb s3://${S3_ARTIFACT_BUCKET_NAME} --region eu-west-2
 aws s3 cp ../agent/ s3://${S3_ARTIFACT_BUCKET_NAME}/agent/ --recursive --exclude ".DS_Store" --exclude "*/.DS_Store"
 
 
